@@ -1,8 +1,6 @@
-FROM postgres:9.4
+FROM postgres:9.5-alpine
 
-MAINTAINER Micah Hausler,<hausler.m@gmail.com>
-
-ENV DOCKER=True
+RUN apk --update add openssl && rm -rf /var/cache/apk/*
 
 # Add the SSL config
 ADD ./ssl.conf /etc/postgresql-common/ssl.conf

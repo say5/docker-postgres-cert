@@ -1,8 +1,6 @@
 #!/bin/bash
 
-if [ -n $DOCKER ]; then
-    cd /opt/
-fi
+cd /tmp
 
 # demoCA setup
 DEMOCA_DIR="demoCA"
@@ -74,17 +72,14 @@ openssl ca \
 
 rm ${LOCAL_CSR}
 
-# move files if in docker
-if [ -n $DOCKER ]; then
-    echo "##################################"
-    echo "# Move key/cert to $PGDATA #"
-    echo "##################################"
+echo "##################################"
+echo "# Move key/cert to $PGDATA #"
+echo "##################################"
 
-    mv $LOCAL_KEY $PGDATA/$LOCAL_KEY
-    chmod 600 $PGDATA/$LOCAL_KEY
-    chown postgres:postgres $PGDATA/${LOCAL_KEY}
+mv $LOCAL_KEY $PGDATA/$LOCAL_KEY
+chmod 600 $PGDATA/$LOCAL_KEY
+chown postgres:postgres $PGDATA/${LOCAL_KEY}
 
-    mv $LOCAL_CERT $PGDATA/$LOCAL_CERT
-    chmod 600 $PGDATA/$LOCAL_CERT
-    chown postgres:postgres $PGDATA/${LOCAL_CERT}
-fi
+mv $LOCAL_CERT $PGDATA/$LOCAL_CERT
+chmod 600 $PGDATA/$LOCAL_CERT
+chown postgres:postgres $PGDATA/${LOCAL_CERT}
